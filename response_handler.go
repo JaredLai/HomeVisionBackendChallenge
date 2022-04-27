@@ -43,7 +43,7 @@ func GetResponse(page int, per_page string) ([]byte) {
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Println(string(responseData))
+			// fmt.Println(string(responseData))
 			data = responseData
 			break
 		}
@@ -59,7 +59,7 @@ func Parse_json(data []byte) (map[string]string) {
 	json.Unmarshal(data, &responseObject)
 
 	for _, house := range responseObject.House {
-		fmt.Println(house.Id, house.Address, house.URL)
+		// fmt.Println(house.Id, house.Address, house.URL)
 		house_map[fmt.Sprint(house.Id) + "-" + house.Address] = house.URL
 	}
 	return house_map
