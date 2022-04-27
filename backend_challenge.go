@@ -1,8 +1,8 @@
 // backend_challenge.go 
-package main
+package main 
 
-import "fmt"
+// import "get_response.go"
 
 func main() {
-	fmt.Println("Hello, world.")
+	GetResponse(5, "37")
 }
