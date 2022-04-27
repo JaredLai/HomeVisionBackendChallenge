@@ -4,5 +4,6 @@ package main
 // import "get_response.go"
 
 func main() {
-	GetResponse(5, "37")
+	var result = GetResponse(5, "37")
+	Parse_json(result)
 }
