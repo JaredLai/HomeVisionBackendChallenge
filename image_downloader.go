@@ -15,7 +15,7 @@ import (
 
 var wg sync.WaitGroup
 
-// helper funciton to check for errors. 
+// helper funciton to check for errors.
 func errorCheck(err error) {
 	if err != nil {
 		fmt.Print(err.Error())
@@ -42,7 +42,9 @@ func save_image(file_name, img_url string) error {
 	response, err := http.Get(img_url)
 	errorCheck(err)
 
-	defer response.Body.Close()
+	if err == nil {
+		defer response.Body.Close()
+	}
 
 	if response.StatusCode != 200 {
 		return errors.New("Error when downloading file" + file_name)
@@ -57,7 +59,7 @@ func save_image(file_name, img_url string) error {
 	// errorCheck(os.WriteFile("/output/"+file_name, response.Body, 0644))
 
 	// first create an empty file
-	file, err := os.Create("output/"+file_name)
+	file, err := os.Create("output/" + file_name)
 	if err != nil {
 		return err
 	}
@@ -70,19 +72,19 @@ func save_image(file_name, img_url string) error {
 		return err
 	}
 
-	wg.Done()	// tell wait group this goroutine is finished
+	wg.Done() // tell wait group this goroutine is finished
 	return nil
 }
 
-// downloads images concurrently 
+// downloads images concurrently
 // given a map of houses, loops througha and downloads images
-// does not return a value 
+// does not return a value
 func Download_Images(houses map[string]string) {
 
 	// looping through the elements in the map
 	for file_name, img_url := range houses {
-		wg.Add(1)	// adds to the wait group
-		go save_image(file_name, img_url)	// calls save_image concurrently 
+		wg.Add(1)                         // adds to the wait group
+		go save_image(file_name, img_url) // calls save_image concurrently
 	}
-	wg.Wait()	// waits for all goroutines to finish 
+	wg.Wait() // waits for all goroutines to finish
 }

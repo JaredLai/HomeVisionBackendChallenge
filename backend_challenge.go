@@ -18,7 +18,7 @@ func main() {
 	// assuming the default per_page as 10; can be easily changed below
 	per_page := "10"
 	for page :=1 ; page<= 10; page++ {
-		var result = GetResponse(page, per_page)// parses the response; returns the json result
+		result := GetResponse(page, per_page)// parses the response; returns the json result
 		houses := Parse_json(result)			// extracts the id, address, url from the json and saves it into a map [id-address]image_url
 		Download_Images(houses)					// downloads images into output folder 
 	}
